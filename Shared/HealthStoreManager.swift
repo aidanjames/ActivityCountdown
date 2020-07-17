@@ -20,8 +20,8 @@ class HealthStoreManager: ObservableObject {
         if HKHealthStore.isHealthDataAvailable() {
             store = HKHealthStore()
             requestAccess()
-//            fetchHealthData()
-            getActivity()
+//            getActivity()
+            executeActivitySummaryQuery()
         } else {
             store = nil
         }
@@ -38,9 +38,9 @@ class HealthStoreManager: ObservableObject {
             store.requestAuthorization(toShare: nil, read: allTypes) { (success, error) in
                 if !success {
                     // Handle the error here.
-                    print("Granted")
-//                    self.fetchHealthData()
-                    self.getActivity()
+                    print("Error in getting access \(error?.localizedDescription)")
+                } else {
+                    print("Apparently successful? \(success.description)")
                 }
             }
         }
@@ -48,56 +48,6 @@ class HealthStoreManager: ObservableObject {
     }
     
     
-    func fetchHealthData() {
-        print("Running fetchHealthData")
-        let calendar = NSCalendar.current
-        let endDate = Date()
-         
-        guard let startDate = calendar.date(byAdding: .day, value: -1, to: endDate) else {
-            fatalError("*** Unable to create the start date ***")
-        }
-
-        
-        let units: Set<Calendar.Component> = [.day, .month, .year, .era]
-
-        var startDateComponents = calendar.dateComponents(units, from: startDate)
-        startDateComponents.calendar = calendar
-
-        var endDateComponents = calendar.dateComponents(units, from: endDate)
-        endDateComponents.calendar = calendar
-
-        // Create the predicate for the query
-        let summariesWithinRange = HKQuery.predicate(forActivitySummariesBetweenStart: startDateComponents,
-                                                     end: endDateComponents)
-        
-        let query = HKActivitySummaryQuery(predicate: summariesWithinRange) { (query, summariesOrNil, errorOrNil) -> Void in
-            
-            print(query)
-            guard let summaries = summariesOrNil else {
-                // Handle any errors here.
-                print("We have an error...")
-                return
-            }
-            
-            print("THIS IS SUMMARIES")
-            print(summaries)
-            
-            for summary in summaries {
-                // Process each summary here.
-                print("**** THIS IS THE SUMMARIES ****")
-                print(summary)
-                
-            }
-            
-            // The results come back on an anonymous background queue.
-            // Dispatch to the main queue before modifying the UI.
-            
-            DispatchQueue.main.async {
-                // Update the UI here.
-            }
-        }
-        store!.execute(query)
-    }
     
     func getActivity() {
         guard let activityData = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned) else { return }
@@ -144,5 +94,53 @@ class HealthStoreManager: ObservableObject {
         
         store?.execute(activityQuery)
         
+    }
+    
+    func executeActivitySummaryQuery() {
+        
+        // Create predicate
+        let calendar = NSCalendar.current
+        let endDate = Date()
+         
+        let components: DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        let startDate = Calendar.current.date(from: components)!
+
+        let units: Set<Calendar.Component> = [.day, .month, .year, .era]
+
+        var startDateComponents = calendar.dateComponents(units, from: startDate)
+        startDateComponents.calendar = calendar
+
+        var endDateComponents = calendar.dateComponents(units, from: endDate)
+        endDateComponents.calendar = calendar
+
+        // Create the predicate for the query
+        let summariesWithinRange = HKQuery.predicate(forActivitySummariesBetweenStart: startDateComponents,
+                                                     end: endDateComponents)
+        
+        
+        // Create query
+        let query = HKActivitySummaryQuery(predicate: summariesWithinRange) { (query, summariesOrNil, errorOrNil) -> Void in
+            
+            guard let summaries = summariesOrNil else {
+                // Handle any errors here.
+                print("Here I am again \(errorOrNil?.localizedDescription)")
+                return
+            }
+            
+            for summary in summaries {
+                // Process each summary here.
+                print(summary)
+            }
+            
+            // The results come back on an anonymous background queue.
+            // Dispatch to the main queue before modifying the UI.
+            
+            DispatchQueue.main.async {
+                // Update the UI here.
+            }
+        }
+        
+        
+        store?.execute(query)
     }
 }

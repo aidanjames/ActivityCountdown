@@ -27,9 +27,13 @@ struct ContentView: View {
             Text("Activity - cals remaining: \(calsTarget - healthData.calsBurned)")
             Text("Workout - mins remaining: \(workoutTargetMins - workoutMinutesAccrued)")
             Text("Standing - hours remaining: \(standingTargetHours - hoursStood)")
+            Button("Update") { healthData.executeActivitySummaryQuery() }
         }
         .padding()
         .frame(width: 400, height: 300)
+        .onAppear {
+//            healthData.getActivity()
+        }
 
     }
 }
