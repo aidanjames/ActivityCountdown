@@ -22,6 +22,7 @@ class HealthStoreManager: ObservableObject {
             requestAccess()
 //            getActivity()
             executeActivitySummaryQuery()
+            getUpdates()
         } else {
             store = nil
         }
@@ -29,18 +30,20 @@ class HealthStoreManager: ObservableObject {
     
     
     func requestAccess() {
-        print("running request access")
-        let allTypes = Set([HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-                            HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!,
-                            HKObjectType.quantityType(forIdentifier: .appleStandTime)!])
+        
+
+        let objectTypes: Set<HKObjectType> = [
+            HKObjectType.activitySummaryType()
+        ]
 
         if let store = store {
-            store.requestAuthorization(toShare: nil, read: allTypes) { (success, error) in
+            store.requestAuthorization(toShare: nil, read: objectTypes) { (success, error) in
                 if !success {
                     // Handle the error here.
                     print("Error in getting access \(error?.localizedDescription)")
                 } else {
                     print("Apparently successful? \(success.description)")
+                    self.executeActivitySummaryQuery()
                 }
             }
         }
@@ -69,7 +72,7 @@ class HealthStoreManager: ObservableObject {
                 fatalError("*** An error occurred while calculating the statistics: \(error!.localizedDescription) ***")
             }
             
-            let endDate = NSDate()
+            _ = NSDate()
             
             let components: DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
             let startDate = Calendar.current.date(from: components)!
@@ -79,7 +82,7 @@ class HealthStoreManager: ObservableObject {
             statsCollection.enumerateStatistics(from: startDate, to: Date()) { [unowned self] statistics, stop in
                 
                 if let quantity = statistics.sumQuantity() {
-                    let date = statistics.startDate
+                    _ = statistics.startDate
 //                    let value = quantity.doubleValue(for: HKUnit.count())
                     
                     print("Here is the quantity")
@@ -98,49 +101,74 @@ class HealthStoreManager: ObservableObject {
     
     func executeActivitySummaryQuery() {
         
-        // Create predicate
-        let calendar = NSCalendar.current
-        let endDate = Date()
-         
-        let components: DateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-        let startDate = Calendar.current.date(from: components)!
+        
+        let calendar = Calendar.autoupdatingCurrent
+                
+        var dateComponents = calendar.dateComponents(
+            [ .year, .month, .day ],
+            from: Date()
+        )
 
-        let units: Set<Calendar.Component> = [.day, .month, .year, .era]
+        // This line is required to make the whole thing work
+        dateComponents.calendar = calendar
 
-        var startDateComponents = calendar.dateComponents(units, from: startDate)
-        startDateComponents.calendar = calendar
-
-        var endDateComponents = calendar.dateComponents(units, from: endDate)
-        endDateComponents.calendar = calendar
-
-        // Create the predicate for the query
-        let summariesWithinRange = HKQuery.predicate(forActivitySummariesBetweenStart: startDateComponents,
-                                                     end: endDateComponents)
+        let predicate = HKQuery.predicateForActivitySummary(with: dateComponents)
         
         
-        // Create query
-        let query = HKActivitySummaryQuery(predicate: summariesWithinRange) { (query, summariesOrNil, errorOrNil) -> Void in
-            
-            guard let summaries = summariesOrNil else {
-                // Handle any errors here.
-                print("Here I am again \(errorOrNil?.localizedDescription)")
+        let query = HKActivitySummaryQuery(predicate: predicate) { (query, summaries, error) in
+
+            guard let summaries = summaries, summaries.count > 0 else {
+                // No data returned. Perhaps check for error
+                if let error = error { print("\(error.localizedDescription)") }
                 return
             }
             
-            for summary in summaries {
-                // Process each summary here.
-                print(summary)
-            }
+            print("Summaries: \(summaries)")
             
-            // The results come back on an anonymous background queue.
-            // Dispatch to the main queue before modifying the UI.
+
+
+            // Handle the activity rings data here
+//            let energyUnit   = HKUnit.jouleUnit(with: .kilo)
+//            let standUnit    = HKUnit.count()
+//            let exerciseUnit = HKUnit.second()
+//
+//
+//            let energy   = summary.activeEnergyBurned.doubleValue(for: energyUnit)
+//            let stand    = summary.appleStandHours.doubleValue(for: standUnit)
+//            let exercise = summary.appleExerciseTime.doubleValue(for: exerciseUnit)
+//
+//            let energyGoal   = summary.activeEnergyBurnedGoal.doubleValue(for: energyUnit)
+//            let standGoal    = summary.appleStandHoursGoal.doubleValue(for: standUnit)
+//            let exerciseGoal = summary.appleExerciseTimeGoal.doubleValue(for: exerciseUnit)
             
-            DispatchQueue.main.async {
-                // Update the UI here.
-            }
+            
         }
-        
         
         store?.execute(query)
     }
+    
+    
+    func getUpdates() {
+        let types = [
+            HKObjectType.categoryType(forIdentifier: .appleStandHour)!,
+            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+            HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!
+        ]
+
+        for type in types {
+            let query = HKObserverQuery(sampleType: type, predicate: nil) { (query, completionHandler, error) in
+
+                // Handle new data here
+                print("I'm being called....")
+                self.executeActivitySummaryQuery()
+
+            }
+
+            store?.execute(query)
+            store?.enableBackgroundDelivery(for: type, frequency: .immediate) { (complete, error) in
+
+            }
+        }
+    }
+
 }
