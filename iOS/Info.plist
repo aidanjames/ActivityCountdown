@@ -41,6 +41,8 @@
 	</array>
 	<key>NSHealthShareUsageDescription</key>
 	<string>We need to know the details to display a countdown.</string>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>This thing?</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
