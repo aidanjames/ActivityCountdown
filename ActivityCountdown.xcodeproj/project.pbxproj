@@ -18,6 +18,10 @@
 		3DEBA2CD24BF7B2E009FA785 /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBA2CC24BF7B2E009FA785 /* HealthStoreManager.swift */; };
 		3DEBA2CE24BF7B2E009FA785 /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBA2CC24BF7B2E009FA785 /* HealthStoreManager.swift */; };
 		3DEBA2D224BF7CB9009FA785 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEBA2D124BF7CB9009FA785 /* HealthKit.framework */; };
+		3DF2B73124C6074A00943AFF /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2B73024C6074A00943AFF /* Color+Ext.swift */; };
+		3DF2B73224C6074A00943AFF /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2B73024C6074A00943AFF /* Color+Ext.swift */; };
+		3DF2B73424C6076100943AFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2B73324C6076100943AFF /* Constants.swift */; };
+		3DF2B73524C6076100943AFF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF2B73324C6076100943AFF /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,8 @@
 		3DEBA2CC24BF7B2E009FA785 /* HealthStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStoreManager.swift; sourceTree = "<group>"; };
 		3DEBA2CF24BF7CB9009FA785 /* ActivityCountdown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ActivityCountdown.entitlements; sourceTree = "<group>"; };
 		3DEBA2D124BF7CB9009FA785 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		3DF2B73024C6074A00943AFF /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
+		3DF2B73324C6076100943AFF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,8 @@
 				3DEBA29024BF75B1009FA785 /* ContentView.swift */,
 				3DEBA29124BF75B2009FA785 /* Assets.xcassets */,
 				3DEBA2CC24BF7B2E009FA785 /* HealthStoreManager.swift */,
+				3DF2B73024C6074A00943AFF /* Color+Ext.swift */,
+				3DF2B73324C6076100943AFF /* Constants.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -326,7 +334,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DF2B73424C6076100943AFF /* Constants.swift in Sources */,
 				3DEBA2BA24BF75B2009FA785 /* ContentView.swift in Sources */,
+				3DF2B73124C6074A00943AFF /* Color+Ext.swift in Sources */,
 				3DEBA2CD24BF7B2E009FA785 /* HealthStoreManager.swift in Sources */,
 				3DEBA2B824BF75B2009FA785 /* ActivityCountdownApp.swift in Sources */,
 			);
@@ -336,7 +346,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DF2B73524C6076100943AFF /* Constants.swift in Sources */,
 				3DEBA2BB24BF75B2009FA785 /* ContentView.swift in Sources */,
+				3DF2B73224C6074A00943AFF /* Color+Ext.swift in Sources */,
 				3DEBA2CE24BF7B2E009FA785 /* HealthStoreManager.swift in Sources */,
 				3DEBA2B924BF75B2009FA785 /* ActivityCountdownApp.swift in Sources */,
 			);

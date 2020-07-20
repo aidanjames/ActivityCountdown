@@ -20,11 +20,24 @@ struct ContentView: View {
             Text("Workout - mins remaining: \(Int(healthData.workoutTarget - healthData.minsWorkedOut))")
             Text("Standing - hours remaining: \(Int(healthData.standingTarget - healthData.hoursStood))")
             Button("Update") { healthData.executeActivitySummaryQuery() }
+            
+            Capsule()
+                .fill(LinearGradient(gradient: Gradient(colors: [Colors.pinkDark, Colors.pinkLight]), startPoint: .leading, endPoint: .trailing))
+                .frame(width: 200, height: 10)
+            Capsule()
+                .fill(LinearGradient(gradient: Gradient(colors: [Colors.yellowDark, Colors.yellowLight]), startPoint: .leading, endPoint: .trailing))
+                .frame(width: 200, height: 10)
+            Capsule()
+                .fill(LinearGradient(gradient: Gradient(colors: [Colors.blueDark, Colors.blueLight]), startPoint: .leading, endPoint: .trailing))
+                .frame(width: 200, height: 10)
+            
+                
         }
         .padding()
         .frame(width: 400, height: 300)
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            healthData.executeActivitySummaryQuery()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 healthData.executeActivitySummaryQuery()
             }
         }
