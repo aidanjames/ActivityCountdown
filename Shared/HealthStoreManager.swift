@@ -20,6 +20,17 @@ class HealthStoreManager: ObservableObject {
     @Published var workoutTarget: Double = 30
     @Published var standingTarget: Double = 12
     
+    var calsRemaining: Int {
+        Int(calsTarget - floor(calsBurned))
+    }
+    
+    var workoutMinsRemaining: Int {
+        Int(workoutTarget - minsWorkedOut)
+    }
+    
+    var standingHoursRemaining: Int {
+        Int(standingTarget - hoursStood)
+    }
     
     init() {
         if HKHealthStore.isHealthDataAvailable() {

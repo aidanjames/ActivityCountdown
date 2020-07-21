@@ -5,6 +5,15 @@
 //  Created by Aidan Pendlebury on 15/07/2020.
 //
 
+/*
+ TODO...
+ - Round down the "remaining" values
+ - Don't go into negative when target has been met (just show 543/500 for example)
+ - Show bars for countdowns
+ - Create widget
+ */
+
+
 import HealthKit
 import SwiftUI
 
@@ -16,21 +25,47 @@ struct ContentView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Activity Countdown").font(.largeTitle).bold().padding(.vertical)
-            Text("Activity - cals remaining: \(Int(healthData.calsTarget - healthData.calsBurned))")
-            Text("Workout - mins remaining: \(Int(healthData.workoutTarget - healthData.minsWorkedOut))")
-            Text("Standing - hours remaining: \(Int(healthData.standingTarget - healthData.hoursStood))")
+
             Button("Update") { healthData.executeActivitySummaryQuery() }
             
-            Capsule()
-                .fill(LinearGradient(gradient: Gradient(colors: [Colors.pinkDark, Colors.pinkLight]), startPoint: .leading, endPoint: .trailing))
-                .frame(width: 200, height: 10)
-            Capsule()
-                .fill(LinearGradient(gradient: Gradient(colors: [Colors.yellowDark, Colors.yellowLight]), startPoint: .leading, endPoint: .trailing))
-                .frame(width: 200, height: 10)
-            Capsule()
-                .fill(LinearGradient(gradient: Gradient(colors: [Colors.blueDark, Colors.blueLight]), startPoint: .leading, endPoint: .trailing))
-                .frame(width: 200, height: 10)
+            // Activity
+            HStack {
+                Capsule()
+                    .fill(Gradients.activity)
+                    .frame(width: 250, height: 20)
+                if healthData.calsRemaining <= 0 {
+                    SFSymbols.checkMark.foregroundColor(.green)
+                } else {
+                    Text("\(healthData.calsRemaining) cal")
+                }
+            }
+            .frame(height: 20)
             
+            // Exercise
+            HStack {
+                Capsule()
+                    .fill(Gradients.exercise)
+                    .frame(width: 250, height: 20)
+                if healthData.workoutMinsRemaining <= 0 {
+                    SFSymbols.checkMark.foregroundColor(.green)
+                } else {
+                    Text("\(healthData.workoutMinsRemaining) min")
+                }
+            }
+            .frame(height: 20)
+            
+            // Standing
+            HStack {
+                Capsule()
+                    .fill(Gradients.standing)
+                    .frame(width: 250, height: 20)
+                if healthData.standingHoursRemaining <= 0 {
+                    SFSymbols.checkMark.foregroundColor(.green)
+                } else {
+                    Text("\(healthData.standingHoursRemaining) hr")
+                }
+            }
+            .frame(height: 20)
                 
         }
         .padding()
@@ -38,6 +73,11 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
             healthData.executeActivitySummaryQuery()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                healthData.executeActivitySummaryQuery()
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 healthData.executeActivitySummaryQuery()
             }
         }

@@ -15,3 +15,14 @@ enum Colors {
     static var blueDark = Color(hex: "00fff8")
     static var blueLight = Color(hex: "00ffbc")
 }
+
+enum SFSymbols {
+    static var checkMark = Image(systemName: "checkmark.circle.fill")
+}
+
+enum Gradients {
+    static var activity = LinearGradient(gradient: Gradient(colors: [Colors.pinkDark, Colors.pinkLight]), startPoint: .leading, endPoint: .trailing)
+    static var exercise = LinearGradient(gradient: Gradient(colors: [Colors.yellowDark, Colors.yellowLight]), startPoint: .leading, endPoint: .trailing)
+    static var standing = LinearGradient(gradient: Gradient(colors: [Colors.blueDark, Colors.blueLight]), startPoint: .leading, endPoint: .trailing)
+    
+}
