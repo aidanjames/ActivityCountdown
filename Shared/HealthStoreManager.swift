@@ -36,7 +36,6 @@ class HealthStoreManager: ObservableObject {
         if HKHealthStore.isHealthDataAvailable() {
             store = HKHealthStore()
             requestAccess()
-//            executeActivitySummaryQuery()
         } else {
             store = nil
         }
@@ -57,7 +56,7 @@ class HealthStoreManager: ObservableObject {
                 }
                 else {
                     self.executeActivitySummaryQuery()
-                    self.getUpdates()
+//                    self.getUpdates()
                 }
             }
         }
@@ -117,24 +116,24 @@ class HealthStoreManager: ObservableObject {
     }
     
     
-    func getUpdates() {
-        let types = [
-            HKObjectType.categoryType(forIdentifier: .appleStandHour)!,
-            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-            HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!
-        ]
-
-        for type in types {
-            let query = HKObserverQuery(sampleType: type, predicate: nil) { (query, completionHandler, error) in
-                print("I'm being called....")
-                self.executeActivitySummaryQuery()
-            }
-
-            store?.execute(query)
-            store?.enableBackgroundDelivery(for: type, frequency: .immediate) { (complete, error) in
-
-            }
-        }
-    }
+//    func getUpdates() {
+//        let types = [
+//            HKObjectType.categoryType(forIdentifier: .appleStandHour)!,
+//            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+//            HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!
+//        ]
+//
+//        for type in types {
+//            let query = HKObserverQuery(sampleType: type, predicate: nil) { (query, completionHandler, error) in
+//                print("I'm being called....")
+//                self.executeActivitySummaryQuery()
+//            }
+//
+//            store?.execute(query)
+//            store?.enableBackgroundDelivery(for: type, frequency: .immediate) { (complete, error) in
+//
+//            }
+//        }
+//    }
 
 }

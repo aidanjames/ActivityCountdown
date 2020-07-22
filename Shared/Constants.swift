@@ -24,5 +24,8 @@ enum Gradients {
     static var activity = LinearGradient(gradient: Gradient(colors: [Colors.pinkDark, Colors.pinkLight]), startPoint: .leading, endPoint: .trailing)
     static var exercise = LinearGradient(gradient: Gradient(colors: [Colors.yellowDark, Colors.yellowLight]), startPoint: .leading, endPoint: .trailing)
     static var standing = LinearGradient(gradient: Gradient(colors: [Colors.blueDark, Colors.blueLight]), startPoint: .leading, endPoint: .trailing)
-    
+}
+
+enum RingType {
+    case activity, exercise, standing
 }
