@@ -16,7 +16,7 @@ class HealthStoreManager: ObservableObject {
     @Published var minsWorkedOut: Double = 0
     @Published var hoursStood: Double = 0
     
-    @Published var calsTarget: Double = 400
+    @Published var calsTarget: Double = 1000
     @Published var workoutTarget: Double = 30
     @Published var standingTarget: Double = 12
     

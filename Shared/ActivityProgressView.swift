@@ -34,6 +34,17 @@ struct ActivityProgressView: View {
         }
     }
     
+    var checkColour: Color {
+        switch ringType {
+        case .activity:
+            return Colors.pinkDark
+        case .exercise:
+            return Colors.yellowDark
+        case .standing:
+            return Colors.blueDark
+        }
+    }
+    
     var metric: String {
         switch ringType {
         case .activity:
@@ -52,12 +63,14 @@ struct ActivityProgressView: View {
                     .fill(ringColour)
                     .frame(width: geo.size.width * 0.8, height: 20)
                 if remaining <= 0 {
-                    SFSymbols.checkMark.foregroundColor(.green)
+                    SFSymbols.checkMark.foregroundColor(checkColour)
+                        .frame(width: geo.size.width * 0.2, height: 20)
                 } else {
                     Text("\(remaining) \(metric)")
+                        .frame(width: geo.size.width * 0.2, height: 20)
                 }
+                Spacer()
             }
-            
         }
     }
 }
