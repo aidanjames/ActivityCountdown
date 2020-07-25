@@ -59,9 +59,7 @@ struct ActivityProgressView: View {
     var body: some View {
         GeometryReader { geo in
             HStack {
-                Capsule()
-                    .fill(ringColour)
-                    .frame(width: geo.size.width * 0.8, height: 20)
+                BarView(value: remaining, width: geo.size.width * 0.8, height: 20, colour: ringColour)
                 if remaining <= 0 {
                     SFSymbols.checkMark.foregroundColor(checkColour)
                         .frame(width: geo.size.width * 0.2, height: 20)
