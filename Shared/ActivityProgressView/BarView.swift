@@ -9,7 +9,8 @@ import SwiftUI
 
 struct BarView: View {
     
-    var value: Int
+    var valueRemaining: Int
+    var target: Int
     var width: CGFloat
     var height: CGFloat
     var colour: LinearGradient
@@ -24,6 +25,6 @@ struct BarView: View {
 
 struct BarView_Previews: PreviewProvider {
     static var previews: some View {
-        BarView(value: 325, width: 150, height: 10, colour: Gradients.activity)
+        BarView(valueRemaining: 325, target: 500, width: 150, height: 10, colour: Gradients.activity)
     }
 }
