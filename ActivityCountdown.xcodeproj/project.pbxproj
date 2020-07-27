@@ -128,9 +128,9 @@
 		3DEBA28E24BF75B1009FA785 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				3DEBA29024BF75B1009FA785 /* ContentView.swift */,
 				3DA1E25524CC90C5001CD91A /* ActivityProgressView */,
 				3DEBA28F24BF75B1009FA785 /* ActivityCountdownApp.swift */,
-				3DEBA29024BF75B1009FA785 /* ContentView.swift */,
 				3DEBA29124BF75B2009FA785 /* Assets.xcassets */,
 				3DEBA2CC24BF7B2E009FA785 /* HealthStoreManager.swift */,
 				3DF2B73024C6074A00943AFF /* Color+Ext.swift */,

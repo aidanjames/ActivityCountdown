@@ -7,8 +7,6 @@
 
 /*
  TODO...
- - Round down the "remaining" values
- - Don't go into negative when target has been met (just show 543/500 for example)
  - Show bars for countdowns
  - Create widget
  */
@@ -59,3 +57,5 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+

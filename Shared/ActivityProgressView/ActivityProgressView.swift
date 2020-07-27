@@ -23,6 +23,17 @@ struct ActivityProgressView: View {
         }
     }
     
+    var progress: CGFloat {
+        switch ringType {
+        case .activity:
+            return CGFloat(healthData.calsBurned / healthData.calsTarget)
+        case .exercise:
+            return CGFloat(healthData.minsWorkedOut / healthData.workoutTarget)
+        case .standing:
+            return CGFloat(healthData.hoursStood / healthData.standingTarget)
+        }
+    }
+    
     var ringColour: LinearGradient {
         switch ringType {
         case .activity:
@@ -58,8 +69,14 @@ struct ActivityProgressView: View {
     
     var body: some View {
         GeometryReader { geo in
+            let barWidth = geo.size.width * 0.8
+            
             HStack {
-                BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: geo.size.width * 0.8, height: 20, colour: ringColour)
+                ZStack(alignment: .leading) {
+                    BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: barWidth, height: 20, colour: ringColour)
+                        .opacity(0.2)
+                    BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: progress * barWidth, height: 20, colour: ringColour)
+                }.frame(width: geo.size.width * 0.8)
                 if remaining <= 0 {
                     SFSymbols.checkMark.foregroundColor(checkColour)
                         .frame(width: geo.size.width * 0.2, height: 20)
@@ -71,6 +88,8 @@ struct ActivityProgressView: View {
             }
         }
     }
+    
+    
 }
 
 struct ProgressView_Previews: PreviewProvider {
