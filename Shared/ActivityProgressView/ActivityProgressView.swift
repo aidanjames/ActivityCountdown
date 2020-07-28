@@ -11,6 +11,7 @@ struct ActivityProgressView: View {
     
     @ObservedObject var healthData: HealthStoreManager
     let ringType: RingType
+    @Binding var isRedacted: Bool
     
     var remaining: Int {
         switch ringType {
@@ -83,6 +84,7 @@ struct ActivityProgressView: View {
                 } else {
                     Text("\(remaining) \(metric)")
                         .frame(width: geo.size.width * 0.2, height: 20)
+                        .redacted(reason: isRedacted ? .placeholder : .init())
                 }
                 Spacer()
             }
@@ -95,9 +97,9 @@ struct ActivityProgressView: View {
 struct ProgressView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading) {
-            ActivityProgressView(healthData: HealthStoreManager(), ringType: .activity)
-            ActivityProgressView(healthData: HealthStoreManager(), ringType: .exercise)
-            ActivityProgressView(healthData: HealthStoreManager(), ringType: .standing)
+            ActivityProgressView(healthData: HealthStoreManager(), ringType: .activity, isRedacted: .constant(true))
+            ActivityProgressView(healthData: HealthStoreManager(), ringType: .exercise, isRedacted: .constant(false))
+            ActivityProgressView(healthData: HealthStoreManager(), ringType: .standing, isRedacted: .constant(false))
         }
     }
 }
