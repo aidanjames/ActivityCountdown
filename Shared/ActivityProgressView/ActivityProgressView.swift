@@ -27,10 +27,13 @@ struct ActivityProgressView: View {
     var progress: CGFloat {
         switch ringType {
         case .activity:
+            guard healthData.calsBurned < healthData.calsTarget else { return 1 }
             return CGFloat(healthData.calsBurned / healthData.calsTarget)
         case .exercise:
+            guard healthData.minsWorkedOut < healthData.workoutTarget else { return 1 }
             return CGFloat(healthData.minsWorkedOut / healthData.workoutTarget)
         case .standing:
+            guard healthData.hoursStood < healthData.standingTarget else { return 1 }
             return CGFloat(healthData.hoursStood / healthData.standingTarget)
         }
     }
