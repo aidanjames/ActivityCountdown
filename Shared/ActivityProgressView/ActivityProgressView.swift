@@ -75,7 +75,7 @@ struct ActivityProgressView: View {
         GeometryReader { geo in
             let barWidth = geo.size.width * 0.8
             
-            HStack {
+            HStack(spacing: 0) {
                 ZStack(alignment: .leading) {
                     BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: barWidth, height: 20, colour: ringColour)
                         .opacity(0.2)

@@ -6,7 +6,8 @@
 //
 
 import HealthKit
-import Foundation
+//import Foundation
+import SwiftUI
 
 class HealthStoreManager: ObservableObject {
     
@@ -56,7 +57,6 @@ class HealthStoreManager: ObservableObject {
                 }
                 else {
                     self.executeActivitySummaryQuery()
-//                    self.getUpdates()
                 }
             }
         }
@@ -102,38 +102,21 @@ class HealthStoreManager: ObservableObject {
             print("\(exercise) - \(exerciseGoal)")
             
             DispatchQueue.main.async {
-                self.calsBurned = energy
-                self.calsTarget = energyGoal
-                self.minsWorkedOut = exercise / 60
-                self.workoutTarget = exerciseGoal / 60
-                self.hoursStood = stand
-                self.standingTarget = standGoal
+                withAnimation {
+                    self.calsBurned = energy
+                    self.calsTarget = energyGoal
+                    self.minsWorkedOut = exercise / 60
+                    self.workoutTarget = exerciseGoal / 60
+                    self.hoursStood = stand
+                    self.standingTarget = standGoal
+                }
+
             }
             
         }
         
         store?.execute(query)
     }
-    
-    
-//    func getUpdates() {
-//        let types = [
-//            HKObjectType.categoryType(forIdentifier: .appleStandHour)!,
-//            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-//            HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!
-//        ]
-//
-//        for type in types {
-//            let query = HKObserverQuery(sampleType: type, predicate: nil) { (query, completionHandler, error) in
-//                print("I'm being called....")
-//                self.executeActivitySummaryQuery()
-//            }
-//
-//            store?.execute(query)
-//            store?.enableBackgroundDelivery(for: type, frequency: .immediate) { (complete, error) in
-//
-//            }
-//        }
-//    }
+
 
 }
