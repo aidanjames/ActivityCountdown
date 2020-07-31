@@ -6,7 +6,6 @@
 //
 
 import HealthKit
-//import Foundation
 import SwiftUI
 
 class HealthStoreManager: ObservableObject {
@@ -21,17 +20,9 @@ class HealthStoreManager: ObservableObject {
     @Published var workoutTarget: Double = 30
     @Published var standingTarget: Double = 12
     
-    var calsRemaining: Int {
-        Int(calsTarget - floor(calsBurned))
-    }
-    
-    var workoutMinsRemaining: Int {
-        Int(workoutTarget - minsWorkedOut)
-    }
-    
-    var standingHoursRemaining: Int {
-        Int(standingTarget - hoursStood)
-    }
+    var calsRemaining: Int { Int(calsTarget - floor(calsBurned)) }
+    var workoutMinsRemaining: Int { Int(workoutTarget - minsWorkedOut) }
+    var standingHoursRemaining: Int { Int(standingTarget - hoursStood) }
     
     init() {
         if HKHealthStore.isHealthDataAvailable() {
@@ -44,11 +35,8 @@ class HealthStoreManager: ObservableObject {
     
     
     func requestAccess() {
-        
 
-        let objectTypes: Set<HKObjectType> = [
-            HKObjectType.activitySummaryType()
-        ]
+        let objectTypes: Set<HKObjectType> = [HKObjectType.activitySummaryType()]
 
         if let store = store {
             store.requestAuthorization(toShare: nil, read: objectTypes) { (success, error) in
@@ -65,7 +53,6 @@ class HealthStoreManager: ObservableObject {
 
     
     func executeActivitySummaryQuery() {
-        
         
         let calendar = Calendar.autoupdatingCurrent
                 
@@ -112,9 +99,7 @@ class HealthStoreManager: ObservableObject {
                 }
 
             }
-            
         }
-        
         store?.execute(query)
     }
 
