@@ -24,6 +24,11 @@ class HealthStoreManager: ObservableObject {
     var workoutMinsRemaining: Int { Int(workoutTarget - minsWorkedOut) }
     var standingHoursRemaining: Int { Int(standingTarget - hoursStood) }
     
+    var hoursRemainingInDay: Int {
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        return 24 - currentHour
+    }
+    
     init() {
         if HKHealthStore.isHealthDataAvailable() {
             store = HKHealthStore()

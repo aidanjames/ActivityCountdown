@@ -38,12 +38,18 @@ struct ContentView: View {
                 ActivityProgressView(healthData: healthData, ringType: .exercise, isRedacted: $isRedacted)
                 ActivityProgressView(healthData: healthData, ringType: .standing, isRedacted: $isRedacted)
             }
+            if healthData.standingHoursRemaining <= healthData.hoursRemainingInDay && healthData.standingHoursRemaining != 0 {
+                Text("Hours remaining: \(healthData.hoursRemainingInDay)")
+            }
+            if healthData.calsRemaining > 0 {
+                Text("You need to burn \(healthData.calsRemaining / healthData.hoursRemainingInDay) cals an hour over the next \(healthData.hoursRemainingInDay) hours to meet your cal goal.")
+            }
             
             Spacer()
 
         }
         .padding(.horizontal)
-        .frame(height: 200)
+        .frame(height: 300)
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             isRedacted = true
             healthData.executeActivitySummaryQuery()
