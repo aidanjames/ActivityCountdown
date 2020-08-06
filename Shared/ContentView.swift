@@ -38,15 +38,18 @@ struct ContentView: View {
                 ActivityProgressView(healthData: healthData, ringType: .exercise, isRedacted: $isRedacted)
                 ActivityProgressView(healthData: healthData, ringType: .standing, isRedacted: $isRedacted)
             }
-            if healthData.standingHoursRemaining <= healthData.hoursRemainingInDay && healthData.standingHoursRemaining != 0 {
-                Text("Hours remaining: \(healthData.hoursRemainingInDay)")
-            }
+            Text("Time remaining in day: \(healthData.hoursAndMinsRemainingInDay.0)hr \(healthData.hoursAndMinsRemainingInDay.1)min").bold().padding(.bottom)
             if healthData.calsRemaining > 0 {
-                Text("You need to burn \(healthData.calsRemaining / healthData.hoursRemainingInDay) cals an hour over the next \(healthData.hoursRemainingInDay) hours to meet your cal goal.")
+                Group {
+                    Text("To hit your activity goal by the end of the day you need to burn \(Int((calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1)).rounded(.up))) cals in the next \(healthData.hoursAndMinsRemainingInDay.1) mins")
+                        + Text(healthData.hoursAndMinsRemainingInDay.0 >= 1 ? " and then an average of \((healthData.calsRemaining - Int(calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1))) / healthData.hoursAndMinsRemainingInDay.0) cal/hr over the remaining \(healthData.hoursAndMinsRemainingInDay.0) hours." : ".")
+                }
+                .font(.caption)
+                .foregroundColor(Colors.pinkLight)
             }
             
             Spacer()
-
+            
         }
         .padding(.horizontal)
         .frame(height: 300)
@@ -68,6 +71,12 @@ struct ContentView: View {
                 }
             }
         }
+    }
+    
+    func calsPerMin() -> Double {
+        // cals remaining / number of mins remaining in day
+        let minsRemainingInDay = Double((healthData.hoursAndMinsRemainingInDay.0 * 60) + healthData.hoursAndMinsRemainingInDay.1)
+        return Double(healthData.calsRemaining) / minsRemainingInDay
     }
 }
 
