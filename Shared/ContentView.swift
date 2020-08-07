@@ -42,17 +42,30 @@ struct ContentView: View {
             if healthData.calsRemaining > 0 {
                 Group {
                     Text("To hit your activity goal by the end of the day you need to burn \(Int((calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1)).rounded(.up))) cals in the next \(healthData.hoursAndMinsRemainingInDay.1) mins")
-                        + Text(healthData.hoursAndMinsRemainingInDay.0 >= 1 ? " and then an average of \((healthData.calsRemaining - Int(calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1))) / healthData.hoursAndMinsRemainingInDay.0) cal/hr over the remaining \(healthData.hoursAndMinsRemainingInDay.0) hours." : ".")
+                        + Text(healthData.hoursAndMinsRemainingInDay.0 >= 1 ? " and then an average of approx. \((healthData.calsRemaining - Int(calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1))) / healthData.hoursAndMinsRemainingInDay.0) cal/hr over the remaining \(healthData.hoursAndMinsRemainingInDay.0) hours." : ".")
                 }
                 .font(.caption)
                 .foregroundColor(Colors.pinkLight)
+                .padding(.bottom)
             }
+            
+            Text("Placeholder for workout information")
+                .font(.caption)
+                .foregroundColor(Colors.yellowDark)
+                .padding(.bottom)
+            
+            Text("Placeholder for standing information")
+                .font(.caption)
+                .foregroundColor(Colors.blueDark)
+                .padding(.bottom)
+            
+            
             
             Spacer()
             
         }
         .padding(.horizontal)
-        .frame(height: 300)
+        .frame(height: 400)
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             isRedacted = true
             healthData.executeActivitySummaryQuery()

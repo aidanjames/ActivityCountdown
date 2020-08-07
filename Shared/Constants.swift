@@ -12,8 +12,8 @@ enum Colors {
     static var pinkLight = Color(hex: "fa3b89")
     static var yellowDark = Color(hex: "afff02")
     static var yellowLight = Color(hex: "d4fe02")
-    static var blueDark = Color(hex: "00fff8")
-    static var blueLight = Color(hex: "00ffbc")
+    static var blueLight = Color(hex: "00fff8")
+    static var blueDark = Color(hex: "00ffbc")
 }
 
 enum SFSymbols {
