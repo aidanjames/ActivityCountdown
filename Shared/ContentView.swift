@@ -32,17 +32,18 @@ struct ContentView: View {
                         .padding(.trailing)
                 })
             }
-            
+            .padding(.top)
             VStack(alignment: .leading) {
                 ActivityProgressView(healthData: healthData, ringType: .activity, isRedacted: $isRedacted)
                 ActivityProgressView(healthData: healthData, ringType: .exercise, isRedacted: $isRedacted)
                 ActivityProgressView(healthData: healthData, ringType: .standing, isRedacted: $isRedacted)
             }
+            .frame(height: 110)
             Text("Time remaining in day: \(healthData.hoursAndMinsRemainingInDay.0)hr \(healthData.hoursAndMinsRemainingInDay.1)min").bold().padding(.bottom)
             if healthData.calsRemaining > 0 {
                 Group {
                     Text("To hit your move goal by the end of the day you need to burn \(Int((calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1)).rounded(.up))) cals in the next \(healthData.hoursAndMinsRemainingInDay.1) mins")
-                        + Text(healthData.hoursAndMinsRemainingInDay.0 >= 1 ? " and then an average of approx. \((healthData.calsRemaining - Int(calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1))) / healthData.hoursAndMinsRemainingInDay.0) cal/hr over the remaining \(healthData.hoursAndMinsRemainingInDay.0) hours." : ".")
+                        + Text(healthData.hoursAndMinsRemainingInDay.0 >= 1 ? " and then an average of ~ \((healthData.calsRemaining - Int(calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1))) / healthData.hoursAndMinsRemainingInDay.0) cal/hr over the remaining \(healthData.hoursAndMinsRemainingInDay.0) hours." : ".")
                 }
                 .font(.caption)
                 .foregroundColor(Colors.pinkLight)
@@ -72,7 +73,7 @@ struct ContentView: View {
             
         }
         .padding(.horizontal)
-        .frame(height: 400)
+//        .frame(height: 400)
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             isRedacted = true
             healthData.executeActivitySummaryQuery()
