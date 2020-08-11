@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D1FD72724E31DD100894EF6 /* MoveInfoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FD72624E31DD100894EF6 /* MoveInfoTextView.swift */; };
+		3D1FD72824E31DD100894EF6 /* MoveInfoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FD72624E31DD100894EF6 /* MoveInfoTextView.swift */; };
+		3D1FD72A24E31EAB00894EF6 /* ExerciseInfoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FD72924E31EAB00894EF6 /* ExerciseInfoTextView.swift */; };
+		3D1FD72B24E31EAB00894EF6 /* ExerciseInfoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FD72924E31EAB00894EF6 /* ExerciseInfoTextView.swift */; };
+		3D1FD72D24E31F8D00894EF6 /* StandInfoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FD72C24E31F8D00894EF6 /* StandInfoTextView.swift */; };
+		3D1FD72E24E31F8D00894EF6 /* StandInfoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1FD72C24E31F8D00894EF6 /* StandInfoTextView.swift */; };
 		3D84412B24C8A3E800816A0C /* ActivityProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D84412A24C8A3E800816A0C /* ActivityProgressView.swift */; };
 		3D84412C24C8A3E800816A0C /* ActivityProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D84412A24C8A3E800816A0C /* ActivityProgressView.swift */; };
 		3DA1E25724CC90E5001CD91A /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA1E25624CC90E5001CD91A /* BarView.swift */; };
@@ -46,6 +52,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D1FD72624E31DD100894EF6 /* MoveInfoTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveInfoTextView.swift; sourceTree = "<group>"; };
+		3D1FD72924E31EAB00894EF6 /* ExerciseInfoTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseInfoTextView.swift; sourceTree = "<group>"; };
+		3D1FD72C24E31F8D00894EF6 /* StandInfoTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandInfoTextView.swift; sourceTree = "<group>"; };
 		3D84412A24C8A3E800816A0C /* ActivityProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityProgressView.swift; sourceTree = "<group>"; };
 		3DA1E25624CC90E5001CD91A /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		3DEBA28F24BF75B1009FA785 /* ActivityCountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCountdownApp.swift; sourceTree = "<group>"; };
@@ -130,6 +139,9 @@
 			children = (
 				3DEBA28F24BF75B1009FA785 /* ActivityCountdownApp.swift */,
 				3DEBA29024BF75B1009FA785 /* ContentView.swift */,
+				3D1FD72C24E31F8D00894EF6 /* StandInfoTextView.swift */,
+				3D1FD72624E31DD100894EF6 /* MoveInfoTextView.swift */,
+				3D1FD72924E31EAB00894EF6 /* ExerciseInfoTextView.swift */,
 				3DA1E25524CC90C5001CD91A /* ActivityProgressView */,
 				3DEBA29124BF75B2009FA785 /* Assets.xcassets */,
 				3DEBA2CC24BF7B2E009FA785 /* HealthStoreManager.swift */,
@@ -350,10 +362,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1FD72D24E31F8D00894EF6 /* StandInfoTextView.swift in Sources */,
 				3DA1E25724CC90E5001CD91A /* BarView.swift in Sources */,
 				3DF2B73424C6076100943AFF /* Constants.swift in Sources */,
 				3DEBA2BA24BF75B2009FA785 /* ContentView.swift in Sources */,
 				3DF2B73124C6074A00943AFF /* Color+Ext.swift in Sources */,
+				3D1FD72724E31DD100894EF6 /* MoveInfoTextView.swift in Sources */,
+				3D1FD72A24E31EAB00894EF6 /* ExerciseInfoTextView.swift in Sources */,
 				3DEBA2CD24BF7B2E009FA785 /* HealthStoreManager.swift in Sources */,
 				3DEBA2B824BF75B2009FA785 /* ActivityCountdownApp.swift in Sources */,
 				3D84412B24C8A3E800816A0C /* ActivityProgressView.swift in Sources */,
@@ -364,10 +379,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1FD72E24E31F8D00894EF6 /* StandInfoTextView.swift in Sources */,
 				3DA1E25824CC90E5001CD91A /* BarView.swift in Sources */,
 				3DF2B73524C6076100943AFF /* Constants.swift in Sources */,
 				3DEBA2BB24BF75B2009FA785 /* ContentView.swift in Sources */,
 				3DF2B73224C6074A00943AFF /* Color+Ext.swift in Sources */,
+				3D1FD72824E31DD100894EF6 /* MoveInfoTextView.swift in Sources */,
+				3D1FD72B24E31EAB00894EF6 /* ExerciseInfoTextView.swift in Sources */,
 				3DEBA2CE24BF7B2E009FA785 /* HealthStoreManager.swift in Sources */,
 				3DEBA2B924BF75B2009FA785 /* ActivityCountdownApp.swift in Sources */,
 				3D84412C24C8A3E800816A0C /* ActivityProgressView.swift in Sources */,

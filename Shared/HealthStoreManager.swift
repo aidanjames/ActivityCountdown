@@ -27,7 +27,7 @@ class HealthStoreManager: ObservableObject {
     var hoursAndMinsRemainingInDay: (Int, Int) {
         let calendar = Calendar.current
         let currentHour = calendar.component(.hour, from: Date())
-        let minute = calendar.component(.minute, from: Date())
+        let minute = calendar.component(.minute, from: Date()) + 1
         return (23 - currentHour, 60 - minute)
     }
     
