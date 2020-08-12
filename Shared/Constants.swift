@@ -18,6 +18,7 @@ enum Colors {
 
 enum SFSymbols {
     static var checkMark = Image(systemName: "checkmark.circle.fill")
+    static var info = Image(systemName: "info.circle")
 }
 
 enum Gradients {

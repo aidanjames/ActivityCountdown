@@ -73,14 +73,14 @@ struct ActivityProgressView: View {
     
     var body: some View {
         GeometryReader { geo in
-            let barWidth = geo.size.width * 0.8
-            
+            let barWidth = geo.size.width * 0.75
+
             HStack(spacing: 0) {
                 ZStack(alignment: .leading) {
                     BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: barWidth, height: 20, colour: ringColour)
                         .opacity(0.2)
                     BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: progress * barWidth, height: 20, colour: ringColour)
-                }.frame(width: geo.size.width * 0.8)
+                }.frame(width: barWidth)
                 if remaining <= 0 {
                     SFSymbols.checkMark.foregroundColor(checkColour)
                         .frame(width: geo.size.width * 0.2, height: 20)
@@ -89,6 +89,7 @@ struct ActivityProgressView: View {
                         .frame(width: geo.size.width * 0.2, height: 20)
                         .redacted(reason: isRedacted ? .placeholder : .init())
                 }
+                Image(systemName: "info.circle")
                 Spacer()
             }
         }
