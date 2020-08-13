@@ -22,6 +22,11 @@ struct ContentView: View {
     @State private var isRedacted = true
     @Environment(\.colorScheme) var colorScheme
     
+    // Help text variables
+    @State private var showingMoveInfoText = false
+    @State private var showingExerciseInfoText = false
+    @State private var showingStandInfoText = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -46,7 +51,7 @@ struct ContentView: View {
                     .padding()
                     .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
                     .clipShape(RoundedRectangle(cornerRadius: 16))
-//                    .frame(maxHeight: 100)
+                //                    .frame(maxHeight: 100)
             }
             
             if healthData.workoutMinsRemaining > 0 && healthData.workoutMinsRemaining <= ((healthData.hoursAndMinsRemainingInDay.0 * 60) + healthData.hoursAndMinsRemainingInDay.1) {
@@ -54,7 +59,7 @@ struct ContentView: View {
                     .padding()
                     .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
                     .clipShape(RoundedRectangle(cornerRadius: 16))
-//                    .frame(maxHeight: 100)
+                //                    .frame(maxHeight: 100)
             }
             
             
@@ -64,7 +69,7 @@ struct ContentView: View {
                     .padding()
                     .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
                     .clipShape(RoundedRectangle(cornerRadius: 16))
-//                    .frame(maxHeight: 100)
+                //                    .frame(maxHeight: 100)
             }
             
             
