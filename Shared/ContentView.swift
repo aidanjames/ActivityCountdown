@@ -5,13 +5,6 @@
 //  Created by Aidan Pendlebury on 15/07/2020.
 //
 
-/*
- TODO...
- - Show bars for countdowns
- - Create widget
- */
-
-
 import HealthKit
 import SwiftUI
 
@@ -23,9 +16,9 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     
     // Help text variables
-    @State private var showingMoveInfoText = false
-    @State private var showingExerciseInfoText = false
-    @State private var showingStandInfoText = false
+    @State private var showingMoveInfoText = true
+    @State private var showingExerciseInfoText = true
+    @State private var showingStandInfoText = true
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -46,31 +39,45 @@ struct ContentView: View {
             }
             .frame(height: 110)
             Text("Time remaining in day: \(healthData.hoursAndMinsRemainingInDay.0)hr \(healthData.hoursAndMinsRemainingInDay.1)min").bold().padding(.bottom)
-            if healthData.calsRemaining > 0 {
-                MoveInfoTextView(healthData: healthData)
-                    .padding()
-                    .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                //                    .frame(maxHeight: 100)
+           
+            if showingMoveInfoText {
+                if healthData.calsRemaining > 0 {
+                    MoveInfoTextView(healthData: healthData)
+                        .padding()
+                        .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                } else {
+                    Text("You've met your target today!")
+                }
             }
-            
-            if healthData.workoutMinsRemaining > 0 && healthData.workoutMinsRemaining <= ((healthData.hoursAndMinsRemainingInDay.0 * 60) + healthData.hoursAndMinsRemainingInDay.1) {
-                ExerciseInfoTextView(healthData: healthData)
-                    .padding()
-                    .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                //                    .frame(maxHeight: 100)
+
+            if showingExerciseInfoText {
+                if healthData.workoutMinsRemaining <= 0 {
+                    Text("You've met your target today!")
+                } else if healthData.workoutMinsRemaining > 0 && healthData.workoutMinsRemaining <= ((healthData.hoursAndMinsRemainingInDay.0 * 60) + healthData.hoursAndMinsRemainingInDay.1) {
+                    ExerciseInfoTextView(healthData: healthData)
+                        .padding()
+                        .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                } else {
+                    Text("Sorry, you've run out of time to meet this target today ☹️")
+                }
             }
+
             
-            
-            if healthData.standingHoursRemaining > 0 && healthData.standingHoursRemaining <= healthData.hoursAndMinsRemainingInDay.0 + 1 {
-                
-                StandInfoTextView(healthData: healthData)
-                    .padding()
-                    .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                //                    .frame(maxHeight: 100)
+            if showingStandInfoText {
+                if healthData.standingHoursRemaining <= 0 {
+                    Text("You've met your target for today!")
+                } else if healthData.standingHoursRemaining > 0 && healthData.standingHoursRemaining <= healthData.hoursAndMinsRemainingInDay.0 + 1 {
+                    StandInfoTextView(healthData: healthData)
+                        .padding()
+                        .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                } else {
+                    Text("Sorry, you've run out of time to meet this target today ☹️")
+                }
             }
+
             
             
             
