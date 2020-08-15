@@ -12,6 +12,9 @@ struct ActivityProgressView: View {
     @ObservedObject var healthData: HealthStoreManager
     let ringType: RingType
     @Binding var isRedacted: Bool
+    @Binding var showingMoveText: Bool
+    @Binding var showingExerciseText: Bool
+    @Binding var showingStandText: Bool
     
     var remaining: Int {
         switch ringType {
@@ -89,7 +92,26 @@ struct ActivityProgressView: View {
                         .frame(width: geo.size.width * 0.2, height: 20)
                         .redacted(reason: isRedacted ? .placeholder : .init())
                 }
-                SFSymbols.info
+                
+                Button(action: {
+                    switch ringType {
+                    case .activity:
+                        withAnimation {
+                            showingMoveText.toggle()
+                        }
+                    case .exercise:
+                        withAnimation {
+                            showingExerciseText.toggle()
+                        }
+                    case .standing:
+                        withAnimation {
+                            showingStandText.toggle()
+                        }
+                    }
+                } ) {
+                    SFSymbols.info
+                }
+                
                 Spacer()
             }
         }
@@ -101,9 +123,9 @@ struct ActivityProgressView: View {
 struct ProgressView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading) {
-            ActivityProgressView(healthData: HealthStoreManager(), ringType: .activity, isRedacted: .constant(true))
-            ActivityProgressView(healthData: HealthStoreManager(), ringType: .exercise, isRedacted: .constant(false))
-            ActivityProgressView(healthData: HealthStoreManager(), ringType: .standing, isRedacted: .constant(false))
+            ActivityProgressView(healthData: HealthStoreManager(), ringType: .activity, isRedacted: .constant(true), showingMoveText: .constant(true), showingExerciseText: .constant(true), showingStandText: .constant(true))
+            ActivityProgressView(healthData: HealthStoreManager(), ringType: .exercise, isRedacted: .constant(false), showingMoveText: .constant(true), showingExerciseText: .constant(true), showingStandText: .constant(true))
+            ActivityProgressView(healthData: HealthStoreManager(), ringType: .standing, isRedacted: .constant(false), showingMoveText: .constant(true), showingExerciseText: .constant(true), showingStandText: .constant(true))
         }
     }
 }
