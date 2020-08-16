@@ -21,7 +21,7 @@ struct ContentView: View {
     @State private var showingStandInfoText = false
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text("Activity Countdown").font(.largeTitle).bold()
                 Spacer()
@@ -34,7 +34,6 @@ struct ContentView: View {
             .padding(.top)
             VStack(alignment: .leading) {
                 ActivityProgressView(healthData: healthData, ringType: .activity, isRedacted: $isRedacted, showingMoveText: $showingMoveInfoText, showingExerciseText: $showingExerciseInfoText, showingStandText: $showingStandInfoText)
-                
                 if showingMoveInfoText {
                     if healthData.calsRemaining > 0 {
                         MoveInfoTextView(healthData: healthData)
@@ -47,7 +46,6 @@ struct ContentView: View {
                 }
 
                 ActivityProgressView(healthData: healthData, ringType: .exercise, isRedacted: $isRedacted, showingMoveText: $showingMoveInfoText, showingExerciseText: $showingExerciseInfoText, showingStandText: $showingStandInfoText)
-                
                 if showingExerciseInfoText {
                     if healthData.workoutMinsRemaining <= 0 {
                         Text("You've met your target today!")
@@ -62,7 +60,6 @@ struct ContentView: View {
                 }
                 
                 ActivityProgressView(healthData: healthData, ringType: .standing, isRedacted: $isRedacted, showingMoveText: $showingMoveInfoText, showingExerciseText: $showingExerciseInfoText, showingStandText: $showingStandInfoText)
-                
                 if showingStandInfoText {
                     if healthData.standingHoursRemaining <= 0 {
                         Text("You've met your target for today!")
@@ -75,17 +72,13 @@ struct ContentView: View {
                         Text("Sorry, you've run out of time to meet this target today ☹️")
                     }
                 }
-                
             }
-//            .frame(minHeight: 110, maxHeight: 400)
-            .frame(minHeight: 110, idealHeight: 110, maxHeight: 400, alignment: .center)
             Text("Time remaining in day: \(healthData.hoursAndMinsRemainingInDay.0)hr \(healthData.hoursAndMinsRemainingInDay.1)min").bold().padding(.bottom)
 
-            Spacer()
+            Spacer() // Pushes everything to the top of the screen.
             
         }
         .padding(.horizontal)
-        //        .frame(height: 400)
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             isRedacted = true
             healthData.executeActivitySummaryQuery()

@@ -11,6 +11,7 @@ struct ActivityProgressView: View {
     
     @ObservedObject var healthData: HealthStoreManager
     let ringType: RingType
+    let height: CGFloat = 20
     @Binding var isRedacted: Bool
     @Binding var showingMoveText: Bool
     @Binding var showingExerciseText: Bool
@@ -80,16 +81,16 @@ struct ActivityProgressView: View {
             
             HStack(spacing: 0) {
                 ZStack(alignment: .leading) {
-                    BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: barWidth, height: 20, colour: ringColour)
+                    BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: barWidth, height: height, colour: ringColour)
                         .opacity(0.2)
-                    BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: progress * barWidth, height: 20, colour: ringColour)
+                    BarView(valueRemaining: remaining, target: Int(healthData.calsTarget), width: progress * barWidth, height: height, colour: ringColour)
                 }.frame(width: barWidth)
                 if remaining <= 0 {
                     SFSymbols.checkMark.foregroundColor(checkColour)
-                        .frame(width: geo.size.width * 0.2, height: 20)
+                        .frame(width: geo.size.width * 0.2, height: height)
                 } else {
                     Text("\(remaining) \(metric)")
-                        .frame(width: geo.size.width * 0.2, height: 20)
+                        .frame(width: geo.size.width * 0.2, height: height)
                         .redacted(reason: isRedacted ? .placeholder : .init())
                 }
                 
@@ -115,6 +116,8 @@ struct ActivityProgressView: View {
                 Spacer()
             }
         }
+        .frame(height: height)
+        .padding(.vertical, 10)
     }
     
     
