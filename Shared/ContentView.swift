@@ -41,14 +41,14 @@ struct ContentView: View {
                             .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
                             .clipShape(RoundedRectangle(cornerRadius: 16))
                     } else {
-                        Text("You've met your target today!")
+                        Text("You've met your move target today!")
                     }
                 }
 
                 ActivityProgressView(healthData: healthData, ringType: .exercise, isRedacted: $isRedacted, showingMoveText: $showingMoveInfoText, showingExerciseText: $showingExerciseInfoText, showingStandText: $showingStandInfoText)
                 if showingExerciseInfoText {
                     if healthData.workoutMinsRemaining <= 0 {
-                        Text("You've met your target today!")
+                        Text("You've met your exercise target today!")
                     } else if healthData.workoutMinsRemaining > 0 && healthData.workoutMinsRemaining <= ((healthData.hoursAndMinsRemainingInDay.0 * 60) + healthData.hoursAndMinsRemainingInDay.1) {
                         ExerciseInfoTextView(healthData: healthData)
                             .padding()
@@ -62,7 +62,7 @@ struct ContentView: View {
                 ActivityProgressView(healthData: healthData, ringType: .standing, isRedacted: $isRedacted, showingMoveText: $showingMoveInfoText, showingExerciseText: $showingExerciseInfoText, showingStandText: $showingStandInfoText)
                 if showingStandInfoText {
                     if healthData.standingHoursRemaining <= 0 {
-                        Text("You've met your target for today!")
+                        Text("You've met your stand target for today!")
                     } else if healthData.standingHoursRemaining > 0 && healthData.standingHoursRemaining <= healthData.hoursAndMinsRemainingInDay.0 + 1 {
                         StandInfoTextView(healthData: healthData)
                             .padding()
