@@ -114,9 +114,9 @@
 		3D66DDAD24EB08B800183377 /* InfoText */ = {
 			isa = PBXGroup;
 			children = (
-				3D1FD72C24E31F8D00894EF6 /* StandInfoTextView.swift */,
 				3D1FD72624E31DD100894EF6 /* MoveInfoTextView.swift */,
 				3D1FD72924E31EAB00894EF6 /* ExerciseInfoTextView.swift */,
+				3D1FD72C24E31F8D00894EF6 /* StandInfoTextView.swift */,
 			);
 			path = InfoText;
 			sourceTree = "<group>";

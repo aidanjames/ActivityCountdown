@@ -34,43 +34,13 @@ struct ContentView: View {
             .padding(.top)
             VStack(alignment: .leading) {
                 ActivityProgressView(healthData: healthData, ringType: .activity, isRedacted: $isRedacted, showingMoveText: $showingMoveInfoText, showingExerciseText: $showingExerciseInfoText, showingStandText: $showingStandInfoText)
-                if showingMoveInfoText {
-                    if healthData.calsRemaining > 0 {
-                        MoveInfoTextView(healthData: healthData)
-                            .padding()
-                            .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                    } else {
-                        Text("You've met your move target today!")
-                    }
-                }
-
+                if showingMoveInfoText { MoveInfoTextView(healthData: healthData) }
                 ActivityProgressView(healthData: healthData, ringType: .exercise, isRedacted: $isRedacted, showingMoveText: $showingMoveInfoText, showingExerciseText: $showingExerciseInfoText, showingStandText: $showingStandInfoText)
-                if showingExerciseInfoText {
-                    if healthData.workoutMinsRemaining <= 0 {
-                        Text("You've met your exercise target today!")
-                    } else if healthData.workoutMinsRemaining > 0 && healthData.workoutMinsRemaining <= ((healthData.hoursAndMinsRemainingInDay.0 * 60) + healthData.hoursAndMinsRemainingInDay.1) {
-                        ExerciseInfoTextView(healthData: healthData)
-                            .padding()
-                            .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                    } else {
-                        Text("Sorry, you've run out of time to meet this target today ☹️")
-                    }
-                }
+                if showingExerciseInfoText { ExerciseInfoTextView(healthData: healthData) }
                 
                 ActivityProgressView(healthData: healthData, ringType: .standing, isRedacted: $isRedacted, showingMoveText: $showingMoveInfoText, showingExerciseText: $showingExerciseInfoText, showingStandText: $showingStandInfoText)
                 if showingStandInfoText {
-                    if healthData.standingHoursRemaining <= 0 {
-                        Text("You've met your stand target for today!")
-                    } else if healthData.standingHoursRemaining > 0 && healthData.standingHoursRemaining <= healthData.hoursAndMinsRemainingInDay.0 + 1 {
-                        StandInfoTextView(healthData: healthData)
-                            .padding()
-                            .background(colorScheme == .dark ? Color.gray.opacity(0.2) : Color.black.opacity(0.8))
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                    } else {
-                        Text("Sorry, you've run out of time to meet this target today ☹️")
-                    }
+                    StandInfoTextView(healthData: healthData)
                 }
             }
             Text("Time remaining in day: \(healthData.hoursAndMinsRemainingInDay.0)hr \(healthData.hoursAndMinsRemainingInDay.1)min").bold().padding(.bottom)
