@@ -22,7 +22,7 @@ struct StandInfoTextView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
         } else if healthData.standingHoursRemaining > 0 && healthData.standingHoursRemaining <= healthData.hoursAndMinsRemainingInDay.0 + 1 {
             HStack {
-                Text("To meet your standing target you need to stand up and move around for at least a minute over \(healthData.standingHoursRemaining) more hours. It's still possible to hit this target as there's \(healthData.hoursAndMinsRemainingInDay.0)hr \(healthData.hoursAndMinsRemainingInDay.1)min remaining in the day.")
+                Text("\(Int(healthData.hoursStood))/\(Int(healthData.standingTarget)) - To meet your standing target you need to stand up and move around for at least a minute over \(healthData.standingHoursRemaining) more hours. It's still possible to hit this target as there's \(healthData.hoursAndMinsRemainingInDay.0)hr \(healthData.hoursAndMinsRemainingInDay.1)min remaining in the day.")
                     .font(.caption)
                     .foregroundColor(Colors.blueDark)
                 Spacer()

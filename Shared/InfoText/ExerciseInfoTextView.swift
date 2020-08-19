@@ -22,7 +22,7 @@ struct ExerciseInfoTextView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
         } else if healthData.workoutMinsRemaining > 0 && healthData.workoutMinsRemaining <= ((healthData.hoursAndMinsRemainingInDay.0 * 60) + healthData.hoursAndMinsRemainingInDay.1) {
             HStack {
-                Text("To meet your workout target you need to perform brisk activity for \(healthData.workoutMinsRemaining) more minutes before the end of the day. There's \(healthData.hoursAndMinsRemainingInDay.0)hr \(healthData.hoursAndMinsRemainingInDay.1)min remaining in the day, plenty of time to smash that goal!")
+                Text("\(Int(healthData.minsWorkedOut))/\(Int(healthData.workoutTarget)) - To meet your workout target you need to perform brisk activity for \(healthData.workoutMinsRemaining) more minutes before the end of the day. There's \(healthData.hoursAndMinsRemainingInDay.0)hr \(healthData.hoursAndMinsRemainingInDay.1)min remaining in the day, plenty of time to smash that goal!")
                     .font(.caption)
                     .foregroundColor(Colors.yellowDark)
                 Spacer()

@@ -51,6 +51,9 @@ struct ContentView: View {
         .padding(.horizontal)
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             isRedacted = true
+            showingMoveInfoText = false
+            showingExerciseInfoText = false
+            showingStandInfoText = false
             healthData.executeActivitySummaryQuery()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 healthData.executeActivitySummaryQuery()

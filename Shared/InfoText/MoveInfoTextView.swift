@@ -17,7 +17,7 @@ struct MoveInfoTextView: View {
             
             HStack {
                 Group {
-                    Text("To hit your move goal by the end of the day you need to burn \(Int((calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1)).rounded(.up))) cals in the next \(healthData.hoursAndMinsRemainingInDay.1) mins")
+                    Text("\(Int(healthData.calsBurned))/\(Int(healthData.calsTarget)) - To hit your move goal by the end of the day you need to burn \(Int((calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1)).rounded(.up))) cals in the next \(healthData.hoursAndMinsRemainingInDay.1) mins")
                         + Text(healthData.hoursAndMinsRemainingInDay.0 >= 1 ? " and then an average of ~\((healthData.calsRemaining - Int(calsPerMin() * Double(healthData.hoursAndMinsRemainingInDay.1))) / healthData.hoursAndMinsRemainingInDay.0) cal/hr over the remaining \(healthData.hoursAndMinsRemainingInDay.0) hours." : ".")
                 }
                 .font(.caption)
